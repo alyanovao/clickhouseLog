@@ -1,0 +1,22 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>com.clickhouse.jdbc.ClickHouseDriver</driverClass>
+            <url>jdbc:clickhouse://localhost:8123/default</url>
+            <user>default</user>
+            <password></password>
+        </connectionSource>
+        <sqlDialect class="org.apache.calcite.sql.dialect.ClickHouseSqlDialect" />
+    </appender>
+
+    <root level="DEBUG" >
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="DB" />
+    </root>
+</configuration>
